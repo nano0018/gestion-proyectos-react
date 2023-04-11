@@ -3,6 +3,8 @@ const conectarDB = require("./config/db");
 const cors = require("cors");
 const morgan = require("morgan");
 const env = require("dotenv");
+const PORT = process.env.PORT || 3002;
+const FRONTEND_URL =  process.env.FRONTEND_URL || "http://localhost:8080"
 
 //crear el servidor
 env.config();
@@ -12,14 +14,13 @@ const app = express();
 conectarDB();
 
 //habilitar cors
-app.use(cors({origin: ["http://localhost:3001"]}));
+app.use(cors({origin: [`${FRONTEND_URL}`]}));
 app.use(morgan("dev"));
 
 //Habilite express.json
 app.use(express.json({ extended: true }));
 app.use(express.static('public'));
 
-const PORT = process.env.PORT || 3002;
 
 //importar rutas
 app.use("/api/usuarios", require("./routes/usuarios"));
