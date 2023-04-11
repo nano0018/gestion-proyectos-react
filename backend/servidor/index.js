@@ -1,16 +1,19 @@
 const express = require("express");
 const conectarDB = require("./config/db");
 const cors = require("cors");
+const morgan = require("morgan");
+const env = require("dotenv");
 
 //crear el servidor
+env.config();
 const app = express();
 
 //conectar a la base de datos
 conectarDB();
 
 //habilitar cors
-
 app.use(cors({origin: ["http://localhost:3001"]}));
+app.use(morgan("dev"));
 
 //Habilite express.json
 app.use(express.json({ extended: true }));
